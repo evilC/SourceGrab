@@ -12,11 +12,11 @@ ToDo:
 class SourceGrab {
 	GuiWidth := 200
 	
-	__New(){
+	__New(hotkey){
 		
 		; Bind Hotkeys to class methods
 		fn := this.DoGrab.Bind(this)
-		hotkey, F12, % fn
+		hotkey, % hotkey, % fn
 		
 		; Set up confirmation dialog
 		Gui, New, HwndHwnd -Border
