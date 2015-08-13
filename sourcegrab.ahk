@@ -12,8 +12,8 @@ ToDo:
 class SourceGrab {
 	GuiWidth := 200
 	
-	__New(hotkey){
-		
+	__New(hotkey, duration := 2000){
+		this.Duration := duration
 		; Bind Hotkeys to class methods
 		fn := this.DoGrab.Bind(this)
 		hotkey, % hotkey, % fn
@@ -109,7 +109,7 @@ class SourceGrab {
 		Gui, % this.GuiCmd("Show")
 		fn := this.HideConfirmation.Bind(this)
 		; Hide Confirmation Dialog after delay
-		SetTimer, % fn, -1000
+		SetTimer, % fn, % "-" this.Duration
 	}
 	
 	; Hides the confirmation Gui
