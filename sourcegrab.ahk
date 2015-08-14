@@ -36,6 +36,7 @@ class SourceGrab {
 		WinGet, win, ProcessName, A
 		; Check if active window is a browser
 		if (win = "chrome.exe"){
+			SetTitleMatchMode, 1
 			; ============== CHROME ==============
 			; Open ViewSource
 			Send ^u
@@ -69,6 +70,31 @@ class SourceGrab {
 			Send ^u
 			; Wait for new window
 			WinWait, Source of:,, 3
+			if (ErrorLevel){
+				; WinWait timed out
+				return
+			}
+			; Saw source window pop up
+			time := A_TickCount + 2000
+			; Wait for source window to populate
+			while (this.Source = "" && A_TickCount < time){
+				; Select all
+				Send ^a
+				Sleep 100
+				; Copy to clipboard
+				Send ^c
+				Sleep 100
+				this.Source := Clipboard
+			}
+			; Close source window
+			WinClose
+		} else if (win = "iexplore.exe"){
+			; ============== INTERNET EXPLORER ==============
+			SetTitleMatchMode, RegEx
+			; Open ViewSource
+			Send ^u
+			; Wait for new window
+			WinWait, .* - Original Source$,, 3
 			if (ErrorLevel){
 				; WinWait timed out
 				return
