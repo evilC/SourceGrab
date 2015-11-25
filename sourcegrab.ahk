@@ -5,7 +5,7 @@ By Clive Galway - evilc@evilc.com
 License: WTFPL
 
 ToDo:
-* IE support
+* Test with Edge
 
 */
 
